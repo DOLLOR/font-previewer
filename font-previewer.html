@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style id="fontface">
+		@font-face {
+			font-family: dollor-preview;
+			/* document.styleSheets[0].rules[0].style.src */
+			src: local('Courier New');
+		}
+	</style>
+	<style>
+		textarea {
+			height: 80vh;
+			width: 90vw;
+			font-size: 24px;
+		}
+	</style>
+</head>
+
+<body>
+	font file: <input type="file" id="fontInput" accept=".TTF, .OTF, .WOFF, .WOFF2">
+	<br>
+	<div style="font-family: dollor-preview!important;">the quick fox jumps over a lazy dog</div>
+	<textarea style="font-family: dollor-preview!important;"></textarea>
+
+	<script>
+		document.getElementById('fontInput').onchange = function(){
+			if(this.files["0"]){
+				var blobURL = URL.createObjectURL(this.files["0"]);
+				console.log('create',blobURL);
+				document.querySelector('#fontface').innerHTML = `
+					@font-face {
+						font-family: dollor-preview;
+						/* document.styleSheets[0].rules[0].style.src */
+						src: url("${blobURL}"),local('Courier New');
+					}
+				`;
+				// document.styleSheets[0].cssRules[0].style.src = `url("${blobURL}"),local('Courier New')`;
+				setTimeout(function(){
+					URL.revokeObjectURL(blobURL);
+					console.log('release',blobURL);
+				},10000);
+			}
+		};
+	</script>
+</body>
+
+</html>
