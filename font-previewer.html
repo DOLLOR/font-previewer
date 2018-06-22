@@ -9,8 +9,8 @@
 	<style id="fontface">
 		@font-face {
 			font-family: dollor-preview;
-			/* document.styleSheets[0].rules[0].style.src */
 			src: local('Courier New');
+			font-display: optional;
 		}
 	</style>
 	<style>
@@ -25,7 +25,7 @@
 <body>
 	font file: <input type="file" id="fontInput" accept=".TTF, .OTF, .WOFF, .WOFF2">
 	<br>
-	<div style="font-family: dollor-preview!important;">The quick brown fox jumps over a lazy dog</div>
+	<div style="font-family: dollor-preview!important;">the quick fox jumps over a lazy dog</div>
 	<textarea style="font-family: dollor-preview!important;"></textarea>
 
 	<script>
@@ -40,7 +40,6 @@
 						src: url("${blobURL}"),local('Courier New');
 					}
 				`;
-				// document.styleSheets[0].cssRules[0].style.src = `url("${blobURL}"),local('Courier New')`;
 				setTimeout(function(){
 					URL.revokeObjectURL(blobURL);
 					console.log('release',blobURL);
