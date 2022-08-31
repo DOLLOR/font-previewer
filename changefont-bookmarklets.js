@@ -22,7 +22,7 @@ javascript: void (() => {
     }
 
     const buffer = await file.arrayBuffer();
-    const fontFace = new FontFace('dollor-all', buffer)
+    const fontFace = new FontFace('dollor-all', buffer);
     const font = await fontFace.load();
     document.fonts.add(font);
 
@@ -44,7 +44,6 @@ javascript: void (() => {
     }
     `;
 
-    await new Promise(resolve => setTimeout(resolve, 3_000));
     document.body.removeChild(div);
   };
 
