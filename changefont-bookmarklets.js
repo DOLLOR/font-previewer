@@ -21,16 +21,10 @@ javascript: void (() => {
       return;
     }
 
-    const blobURL = URL.createObjectURL(file);
-    /*
-    const blobURL = await new Promise(resolve => {
-      const fileReader = new FileReader();
-      fileReader.onload = () => {
-        resolve(fileReader.result)
-      };
-      fileReader.readAsDataURL(file);
-    });
-    */
+    const buffer = await file.arrayBuffer();
+    const fontFace = new FontFace('dollor-all', buffer)
+    const font = await fontFace.load();
+    document.fonts.add(font);
 
     let styleTag =
       /** @type {HTMLStyleElement|null} */
@@ -43,12 +37,6 @@ javascript: void (() => {
     }
 
     styleTag.innerHTML = `
-    @font-face {
-      font-family: dollor-all;
-      /* document.styleSheets[0].rules[0].style.src */
-      src: url("${blobURL}"),local('Courier New');
-    }
-
     html body *:not(i):not(.icon){
       font-family: dollor-all,sans-serif,serif!important;
       font-synthesis: style weight!important;
@@ -57,7 +45,6 @@ javascript: void (() => {
     `;
 
     await new Promise(resolve => setTimeout(resolve, 3_000));
-    URL.revokeObjectURL(blobURL);
     document.body.removeChild(div);
   };
 
