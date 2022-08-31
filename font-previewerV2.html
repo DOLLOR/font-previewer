@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		textarea {
+			height: 80vh;
+			width: 90vw;
+			font-size: 24px;
+		}
+	</style>
+</head>
+
+<body>
+	font file: <input type="file" id="fontInput" accept=".TTF, .OTF, .WOFF, .WOFF2">
+	<br>
+	<div style="font-family: dollor-preview!important;">the quick brown fox jumps over a lazy dog</div>
+	<div style="font-family: dollor-preview!important;">THE QUICK BROWN FOX JUMPS OVER A LAZY DOG</div>
+	<div style="font-family: dollor-preview!important;">0123456789</div>
+	<textarea style="font-family: dollor-preview!important;"></textarea>
+
+	<script>
+		// @ts-check
+
+		// default font
+		document.fonts.add(new FontFace('dollor-preview', `local('Courier New')`))
+
+		document.getElementById('fontInput').onchange =
+		/** @type {(this: HTMLInputElement) => Promise<void>} */
+		async function(){
+			if(this.files[0]){
+				document.fonts.add(new FontFace('dollor-preview', await this.files[0].arrayBuffer()))
+			}
+		};
+	</script>
+</body>
+
+</html>
