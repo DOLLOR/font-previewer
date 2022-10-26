@@ -21,11 +21,15 @@ javascript: void (() => {
       return;
     }
 
+    console.log('loading file', file);
     const buffer = await file.arrayBuffer();
     const fontFace = new FontFace('dollor-all', buffer);
+
+    console.log('loading fontFace');
     const font = await fontFace.load();
     document.fonts.add(font);
 
+    console.log('adding style')
     let styleTag =
       /** @type {HTMLStyleElement|null} */
       (document.querySelector('style#dollorfontface'));
